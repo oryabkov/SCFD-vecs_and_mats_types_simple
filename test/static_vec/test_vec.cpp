@@ -19,26 +19,77 @@
 #include <list>
 #include <scfd/static_vec/vec.h>
 
+#include "gtest/gtest.h"
+
 using namespace scfd::static_vec;
 
-int main(int argc, char const *argv[])
+TEST(StaticVecTest, InitFloatByValues) 
+{
+    vec<float,3>    v1(0.f,1.f,2);
+
+    ASSERT_EQ(v1[0], 0.f);
+    ASSERT_EQ(v1[1], 1.f);
+    ASSERT_EQ(v1[2], 2.f);
+
+    ASSERT_EQ(v1.get<0>(), 0.f);
+    ASSERT_EQ(v1.get<1>(), 1.f);
+    ASSERT_EQ(v1.get<2>(), 2.f);
+}
+
+TEST(StaticVecTest, InitIntByValues) 
+{
+    vec<int,3>          v2(0.5f,1.f,1);
+
+    ASSERT_EQ(v2[0], 0);
+    ASSERT_EQ(v2[1], 1);
+    ASSERT_EQ(v2[2], 1);
+
+    ASSERT_EQ(v2.get<0>(), 0);
+    ASSERT_EQ(v2.get<1>(), 1);
+    ASSERT_EQ(v2.get<2>(), 1);
+}
+
+TEST(StaticVecTest, InitIntBySTDVector) 
 {
     std::vector<int>    vector_int = {1,2,3};
-    std::list<int>      list_int = {1,2,3};
-    vec<float,3>        v1(0.f,1.f,2);
-    vec<int,3>          v2(0.5f,1.f,1);
     vec<int,3>          v3(vector_int);     //calls tempalte 'Vec' constructor
-    //vec<int,3>          v4(list_int);     //not working - no operator[]
-    //vec<int,3>          v5(0.5f,1.f);     //not working - number of argument
-    //std::cout << "copy contr." << std::endl;
-    vec<int,3>          v6(v3);             //calls normal copy constructor
 
-    std::cout << "sizeof(vec<float,3>) = " << sizeof(vec<float,3>) << std::endl;
-    std::cout << "sizeof(vec<int,3>) = " << sizeof(vec<int,3>) << std::endl;
+    ASSERT_EQ(v3[0], 1);
+    ASSERT_EQ(v3[1], 2);
+    ASSERT_EQ(v3[2], 3);
 
-    std::cout << v1[0] << " " << v1[1] << " " << v1[2] << std::endl;
-    std::cout << v2[0] << " " << v1[1] << " " << v2[2] << std::endl;
-    std::cout << v3[0] << " " << v3[1] << " " << v3[2] << std::endl;
-    
-    return 0;
+    ASSERT_EQ(v3.get<0>(), 1);
+    ASSERT_EQ(v3.get<1>(), 2);
+    ASSERT_EQ(v3.get<2>(), 3);
 }
+
+TEST(StaticVecTest, CopyConstructor) 
+{
+    vec<int,3>          v0(1,2,3);     //calls tempalte 'Vec' constructor
+    vec<int,3>          v6(v0);        //calls normal copy constructor
+
+    ASSERT_EQ(v6[0], 1);
+    ASSERT_EQ(v6[1], 2);
+    ASSERT_EQ(v6[2], 3);
+
+    ASSERT_EQ(v6.get<0>(), 1);
+    ASSERT_EQ(v6.get<1>(), 2);
+    ASSERT_EQ(v6.get<2>(), 3);
+}
+
+TEST(StaticVecTest, SizeOfValue)
+{
+    ASSERT_EQ(sizeof(vec<float,3>), sizeof(float)*3);
+    ASSERT_EQ(sizeof(vec<int,3>), sizeof(int)*3);
+}
+
+/*TEST(StaticVecTest, NoInitFromSTDList) 
+{
+    std::list<int>      list_int = {1,2,3};
+    vec<int,3>          v4(list_int);     //not working - no operator[]
+}*/
+
+/*TEST(StaticVecTest, InitWithWrongDimension) 
+{
+    vec<int,3>          v5(0.5f,1.f);     //not working - number of argument
+}*/
