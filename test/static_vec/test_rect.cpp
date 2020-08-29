@@ -30,12 +30,3 @@ TEST(StaticRectTest, CalcArea)
 
     ASSERT_EQ(r.calc_area(), 1);
 }
-
-/*int main()
-{
-    
-
-    std::cout <<  << std::endl;
-
-    return 0;
-}*/
