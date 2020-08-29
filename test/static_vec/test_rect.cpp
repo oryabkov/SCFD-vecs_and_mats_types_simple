@@ -17,16 +17,25 @@
 #include <iostream>
 #include <scfd/static_vec/rect.h>
 
+#include "gtest/gtest.h"
+
 using namespace scfd::static_vec;
 
 typedef vec<int,3>    idx_t;
 typedef rect<int,3>   rect_t;
 
-/*int main()
+TEST(StaticRectTest, CalcArea) 
 {
     rect_t  r(idx_t(0,0,0), idx_t(1,1,1));
 
-    std::cout << r.calc_area() << std::endl;
+    ASSERT_EQ(r.calc_area(), 1);
+}
+
+/*int main()
+{
+    
+
+    std::cout <<  << std::endl;
 
     return 0;
 }*/
