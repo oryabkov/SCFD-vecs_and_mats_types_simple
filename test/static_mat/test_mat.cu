@@ -44,7 +44,7 @@ __global__ void ket_test(Mat1 m1, Mat2 m2)
    // printf("test\n");   
 }
 
-int main(int argc, char const *argv[])
+/*int main(int argc, char const *argv[])
 {
     cudaSetDevice(1);
 
@@ -108,4 +108,4 @@ int main(int argc, char const *argv[])
     cudaDeviceSynchronize();
 
     return 0;
-}
+}*/

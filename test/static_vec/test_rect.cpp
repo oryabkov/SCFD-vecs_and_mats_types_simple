@@ -22,11 +22,11 @@ using namespace scfd::static_vec;
 typedef vec<int,3>    idx_t;
 typedef rect<int,3>   rect_t;
 
-int main()
+/*int main()
 {
     rect_t  r(idx_t(0,0,0), idx_t(1,1,1));
 
     std::cout << r.calc_area() << std::endl;
 
     return 0;
-}
+}*/
