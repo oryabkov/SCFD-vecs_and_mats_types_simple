@@ -17,9 +17,11 @@
 #include <iostream>
 #include <scfd/static_vec/vec.h>
 
+/// TODO nvcc+gtest don't work for now.. need to separate somehow
+
 using namespace scfd::static_vec;
 
-int main(int argc, char const *argv[])
+/*int main(int argc, char const *argv[])
 {
     float           arr1[3] = {3,4,5},
                     arr2[3] = {4,5,6};
@@ -39,4 +41,4 @@ int main(int argc, char const *argv[])
     std::cout << v3[0] << " " << v3[1] << " " << v3[2] << std::endl;
 
     return 0;
-}
+}*/
