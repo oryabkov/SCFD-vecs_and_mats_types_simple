@@ -46,7 +46,7 @@ public:
                                       std::is_convertible<Args,help_t<Args> >::value... 
                                   >::value
                               >::type>
-    __DEVICE_TAG__                      vec(const Args&... args) : d{args...}
+    __DEVICE_TAG__                      vec(const Args&... args) : d{static_cast<T>(args)...}
     {
     }
     __DEVICE_TAG__                      vec(const vec &v) = default;
