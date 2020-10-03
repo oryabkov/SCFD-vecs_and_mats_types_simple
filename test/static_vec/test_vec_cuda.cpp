@@ -21,8 +21,6 @@
 
 #include "gtest/gtest.h"
 
-using namespace scfd::static_vec;
-
 TEST(StaticVecNVCCTest, InitOnHost) 
 {
     ASSERT_TRUE(perform_vec_init_tests_on_host_nvcc());
