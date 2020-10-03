@@ -1,5 +1,5 @@
 
-add_executable(test_vec_cuda.bin test_vec.cu)
+add_executable(test_vec_cuda.bin test_vec_cuda.cu test_vec_cuda.cpp)
 target_link_libraries(test_vec_cuda.bin gtest_main)
 add_executable(test_vec_host.bin test_vec.cpp)
 target_link_libraries(test_vec_host.bin gtest_main)

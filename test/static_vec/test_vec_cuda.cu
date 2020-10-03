@@ -17,11 +17,9 @@
 #include <iostream>
 #include <scfd/static_vec/vec.h>
 
-/// TODO nvcc+gtest don't work for now.. need to separate somehow
-
 using namespace scfd::static_vec;
 
-/*int main(int argc, char const *argv[])
+bool perform_vec_init_tests_on_host_nvcc()
 {
     float           arr1[3] = {3,4,5},
                     arr2[3] = {4,5,6};
@@ -30,15 +28,31 @@ using namespace scfd::static_vec;
     vec<float,3>    v3(arr1);
     //vec<int,3>      v3(0.5f,1.f);     //not working - number of argument
 
-    std::cout << "sizeof(vec<float,3>) = " << sizeof(vec<float,3>) << std::endl;
-    std::cout << "sizeof(vec<int,3>) = " << sizeof(vec<int,3>) << std::endl;
+    if (sizeof(vec<float,3>) != sizeof(float)*3) return false;
+    if (sizeof(vec<int,3>) != sizeof(int)*3) return false;
 
-    std::cout << v1[0] << " " << v1[1] << " " << v1[2] << std::endl;
-    std::cout << v1.get<0>() << " " << v1.get<1>() << " " << v1.get<2>() << std::endl;
-    std::cout << v2[0] << " " << v1[1] << " " << v2[2] << std::endl;
-    std::cout << v3[0] << " " << v3[1] << " " << v3[2] << std::endl;
+    if (v1[0] != 0.f) return false;
+    if (v1[1] != 1.f) return false;
+    if (v1[2] != 2.f) return false;
+    //std::cout << v1[0] << " " << v1[1] << " " << v1[2] << std::endl;
+    if (v1.get<0>() != 0.f) return false;
+    if (v1.get<1>() != 1.f) return false;
+    if (v1.get<2>() != 2.f) return false;
+    //std::cout << v1.get<0>() << " " << v1.get<1>() << " " << v1.get<2>() << std::endl;
+    if (v2[0] != 0) return false;
+    if (v2[1] != 1) return false;
+    if (v2[2] != 1) return false;
+    //std::cout << v2[0] << " " << v1[1] << " " << v2[2] << std::endl;
+    if (v3[0] != 3.) return false;
+    if (v3[1] != 4.) return false;
+    if (v3[2] != 5.) return false;
+    //std::cout << v3[0] << " " << v3[1] << " " << v3[2] << std::endl;
     v3 = arr2;
-    std::cout << v3[0] << " " << v3[1] << " " << v3[2] << std::endl;
+    if (v3[0] != 4.) return false;
+    if (v3[1] != 5.) return false;
+    if (v3[2] != 6.) return false;
+    //std::cout << v3[0] << " " << v3[1] << " " << v3[2] << std::endl;
 
-    return 0;
-}*/
+    return true;
+}
+
