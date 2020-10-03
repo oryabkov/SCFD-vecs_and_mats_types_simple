@@ -39,6 +39,7 @@ public:
     static const int            dim = Dim;
 
     __DEVICE_TAG__                      vec() {}
+    /// ISSUE Still not sure about this static_cast here...
     template<typename... Args,
              class = typename std::enable_if<sizeof...(Args) == Dim>::type,
              class = typename std::enable_if<
