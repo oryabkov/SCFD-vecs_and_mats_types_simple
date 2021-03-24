@@ -17,7 +17,9 @@
 #ifndef __SCFD_MAT_H__
 #define __SCFD_MAT_H__
 
+#include <type_traits>
 #include <scfd/utils/device_tag.h>
+#include "detail/bool_array.h"
 
 namespace scfd
 {
@@ -27,6 +29,7 @@ namespace static_mat
 template<class T,int Dim1,int Dim2>
 class mat
 {
+    template<class X>using help_t = T;
 public:
 
     T d[Dim1][Dim2];
@@ -37,6 +40,16 @@ public:
 
     __DEVICE_TAG__                      mat() = default;
     __DEVICE_TAG__                      mat(const mat &v) = default;
+    template<typename... Args,
+             class = typename std::enable_if<sizeof...(Args) == Dim1*Dim2>::type,
+             class = typename std::enable_if<
+                                  detail::check_all_are_true< 
+                                      std::is_convertible<Args,help_t<Args> >::value... 
+                                  >::value
+                              >::type>
+    __DEVICE_TAG__                      mat(const Args&... args) : d{static_cast<T>(args)...}
+    {
+    }
 
     __DEVICE_TAG__ mat                  operator*(value_type mul)const
     {
