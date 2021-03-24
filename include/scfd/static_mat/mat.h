@@ -192,6 +192,12 @@ public:
     }
 };
 
+template<class T,int Dim1,int Dim2>
+__DEVICE_TAG__ mat<T,Dim1,Dim2> operator*(T mul, const mat<T,Dim1,Dim2> &m)
+{
+    return m*mul;
+}
+
 }
 }
 
