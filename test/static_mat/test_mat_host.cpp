@@ -21,6 +21,59 @@
 
 using namespace scfd::static_mat;
 
+TEST(StaticMatTest, InitFloatByValues) 
+{
+    mat<float,2,3>    m1( 0.f, 1.f, 2,
+                         -0.f,-1.f,-2);
+
+    ASSERT_EQ(m1(0,0), 0.f);
+    ASSERT_EQ(m1(0,1), 1.f);
+    ASSERT_EQ(m1(0,2), 2.f);
+
+    ASSERT_EQ(m1(1,0), -0.f);
+    ASSERT_EQ(m1(1,1), -1.f);
+    ASSERT_EQ(m1(1,2), -2.f);
+}
+
+TEST(StaticMatTest, InitIntByInitializerLists) 
+{
+    mat<float,2,3>       m1 = { 0.f, 1.f, 2.f,
+                               -0.f,-1.f,-2.f};
+    /// NOTE that this version is impossible
+    //                     m2 = { { 3.f, 2.f, 1.f},
+    //                            {-3.f,-2.f,-1.f}};
+
+    ASSERT_EQ(m1(0,0), 0.f);
+    ASSERT_EQ(m1(0,1), 1.f);
+    ASSERT_EQ(m1(0,2), 2.f);
+
+    ASSERT_EQ(m1(1,0), -0.f);
+    ASSERT_EQ(m1(1,1), -1.f);
+    ASSERT_EQ(m1(1,2), -2.f);
+}
+
+TEST(StaticMatTest, ScalarMul)
+{
+    mat<int,2,3>    m0( 0, 1, 2,
+                        0,-1,-2),
+                    m1,m2;
+
+    m1 = m0*2;
+    ASSERT_EQ(m1(0,0), 0);
+    ASSERT_EQ(m1(0,1), 2);
+    ASSERT_EQ(m1(0,2), 4);
+    ASSERT_EQ(m1(1,0), -0);
+    ASSERT_EQ(m1(1,1), -2);
+    ASSERT_EQ(m1(1,2), -4);
+    m2 = 3*m0;
+    ASSERT_EQ(m2(0,0), 0);
+    ASSERT_EQ(m2(0,1), 3);
+    ASSERT_EQ(m2(0,2), 6);
+    ASSERT_EQ(m2(1,0), -0);
+    ASSERT_EQ(m2(1,1), -3);
+    ASSERT_EQ(m2(1,2), -6);
+}
+
 /*template<typename T, class T_mat>
 __host__ __device__ T some_func(T_mat& m2)
 {

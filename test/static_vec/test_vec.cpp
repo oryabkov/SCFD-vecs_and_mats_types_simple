@@ -63,6 +63,19 @@ TEST(StaticVecTest, InitIntBySTDVector)
     ASSERT_EQ(v3.get<2>(), 3);
 }
 
+TEST(StaticVecTest, InitIntByInitializerList) 
+{
+    vec<int,3>          v3 = {1,2,3.};
+
+    ASSERT_EQ(v3[0], 1);
+    ASSERT_EQ(v3[1], 2);
+    ASSERT_EQ(v3[2], 3);
+
+    ASSERT_EQ(v3.get<0>(), 1);
+    ASSERT_EQ(v3.get<1>(), 2);
+    ASSERT_EQ(v3.get<2>(), 3);
+}
+
 TEST(StaticVecTest, CopyConstructor) 
 {
     vec<int,3>          v0(1,2,3);     //calls tempalte 'Vec' constructor
