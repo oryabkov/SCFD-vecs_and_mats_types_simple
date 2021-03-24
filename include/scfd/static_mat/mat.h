@@ -168,6 +168,15 @@ public:
         }
         return res;
     }
+    __DEVICE_TAG__ T                     trace()const
+    {
+        T res(0);
+        #pragma unroll
+        for (int i = 0;i < (dim1 < dim2?dim1:dim2);++i) {
+            res += d[i][i];
+        }
+        return res;
+    }
 };
 
 }
