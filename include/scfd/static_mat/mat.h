@@ -19,6 +19,7 @@
 
 #include <type_traits>
 #include <scfd/utils/device_tag.h>
+#include <scfd/static_vec/vec.h>
 #include "detail/bool_array.h"
 
 namespace scfd
@@ -148,6 +149,23 @@ public:
                 d[i][j] /= mul;
         }
         return *this;
+    }
+
+    __DEVICE_TAG__ static_vec::vec<T,Dim1> operator*(const static_vec::vec<T,Dim2> &v)const
+    {
+        static_vec::vec<T,Dim1> res;
+
+        #pragma unroll
+        for (int i = 0;i < Dim1;++i) {
+            T sum = T(0);
+            #pragma unroll
+            for (int l = 0; l < Dim2; ++l) {
+                sum += d[i][l]*v[l];
+            }
+            res[i] = sum;
+        }
+
+        return res;
     }
 
     template<int Dim3>

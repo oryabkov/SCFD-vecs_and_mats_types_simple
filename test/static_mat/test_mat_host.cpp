@@ -15,10 +15,12 @@
 // along with SCFD.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
+#include <scfd/static_vec/vec.h>
 #include <scfd/static_mat/mat.h>
 
 #include "gtest/gtest.h"
 
+using namespace scfd::static_vec;
 using namespace scfd::static_mat;
 
 TEST(StaticMatTest, InitFloatByValues) 
@@ -72,6 +74,18 @@ TEST(StaticMatTest, ScalarMul)
     ASSERT_EQ(m2(1,0), -0);
     ASSERT_EQ(m2(1,1), -3);
     ASSERT_EQ(m2(1,2), -6);
+}
+
+TEST(StaticMatTest, VecMul)
+{
+    mat<int,2,3>    m( 0, 1, 2,
+                       0,-1,-2);
+    vec<int,3>      v(1,2,3);
+    vec<int,2>      v1;
+
+    v1 = m*v;
+    ASSERT_EQ(v1(0), 8);
+    ASSERT_EQ(v1(1),-8);
 }
 
 /*template<typename T, class T_mat>
