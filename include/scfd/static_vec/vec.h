@@ -179,6 +179,15 @@ __DEVICE_TAG__ vec<T,Dim>   vector_prod(const vec<T,Dim> &v1, const vec<T,Dim> &
     return res;
 }
 
+template<class T,int Dim>
+__DEVICE_TAG__ T triple_prod(const vec<T,Dim>& x,
+                             const vec<T,Dim>& y,
+                             const vec<T,Dim>& z)
+{
+    static_assert(Dim==3, "static_vec::triple_prod: trying to apply to non 3d vectors");
+    return scalar_prod(x,vector_prod(y,z));
+}
+
 }
 
 }
