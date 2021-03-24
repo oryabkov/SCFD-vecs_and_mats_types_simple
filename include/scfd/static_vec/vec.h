@@ -160,6 +160,12 @@ public:
 };
 
 template<class T,int Dim>
+__DEVICE_TAG__ vec<T,Dim>   operator*(T mul, const vec<T,Dim> &v)
+{
+    return v*mul;
+}
+
+template<class T,int Dim>
 __DEVICE_TAG__ T            scalar_prod(const vec<T,Dim> &v1, const vec<T,Dim> &v2)
 {
     T   res(0.);
