@@ -50,7 +50,10 @@ public:
     __DEVICE_TAG__                      vec(const Args&... args) : d{static_cast<T>(args)...}
     {
     }
-    __DEVICE_TAG__                      vec(const vec &v) = default;
+    __DEVICE_TAG__                      vec(const vec &v)
+    {
+        *this = v;
+    }
     template<class Vec, 
              class = typename std::enable_if<detail::has_subscript_operator<Vec,int>::value>::type>
     __DEVICE_TAG__                      vec(const Vec &v)
@@ -123,7 +126,14 @@ public:
         return res;
     }
     
-    __DEVICE_TAG__ vec                   &operator=(const vec &v) = default;
+    /// NOTE this explicit definition is used because of nvcc warning:
+    ///  __device__ annotation is ignored on a function that is explicitly defaulted on its first declaration
+    __DEVICE_TAG__ vec                   &operator=(const vec &v)
+    {
+        #pragma unroll
+        for (int j = 0;j < dim;++j) d[j] = v.d[j];
+        return *this;  
+    }
     template<class Vec, 
              class = typename std::enable_if<detail::has_subscript_operator<Vec,int>::value>::type>
     __DEVICE_TAG__ vec                   &operator=(const Vec &v)

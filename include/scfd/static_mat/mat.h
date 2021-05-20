@@ -39,8 +39,13 @@ public:
     static const int            dim1 = Dim1;
     static const int            dim2 = Dim2;
 
-    __DEVICE_TAG__                      mat() = default;
-    __DEVICE_TAG__                      mat(const mat &v) = default;
+    __DEVICE_TAG__                      mat()
+    {
+    }
+    __DEVICE_TAG__                      mat(const mat &v)
+    {
+        *this = v;
+    }
     template<typename... Args,
              class = typename std::enable_if<sizeof...(Args) == Dim1*Dim2>::type,
              class = typename std::enable_if<
@@ -108,7 +113,18 @@ public:
         return res;
     }
     
-    __DEVICE_TAG__ mat                   &operator=(const mat &v) = default;
+    /// NOTE this explicit definition is used because of nvcc warning:
+    ///  __device__ annotation is ignored on a function that is explicitly defaulted on its first declaration
+    __DEVICE_TAG__ mat                   &operator=(const mat &v)
+    {
+        #pragma unroll
+        for (int i = 0;i < dim1;++i) {
+            #pragma unroll
+            for (int j = 0;j < dim2;++j)
+                d[i][j] = v.d[i][j];
+        }
+        return *this;
+    }
     __DEVICE_TAG__ mat                   &operator+=(const mat &v)
     {
         #pragma unroll
