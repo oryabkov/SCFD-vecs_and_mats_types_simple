@@ -42,6 +42,7 @@ public:
     __DEVICE_TAG__                      mat()
     {
     }
+    /// ISSUE for some reason here operator= is used but in one of vec constructor's explicit copy is done; which is better??
     __DEVICE_TAG__                      mat(const mat &v)
     {
         *this = v;

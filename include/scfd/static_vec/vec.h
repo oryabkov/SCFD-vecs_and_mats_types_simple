@@ -50,6 +50,7 @@ public:
     __DEVICE_TAG__                      vec(const Args&... args) : d{static_cast<T>(args)...}
     {
     }
+    /// ISSUE for some reason here operator= is used and in next constructor explicit copy is done; which is better??
     __DEVICE_TAG__                      vec(const vec &v)
     {
         *this = v;
